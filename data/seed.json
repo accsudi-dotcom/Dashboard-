@@ -1,0 +1,64 @@
+{
+  "users": [
+    {
+      "id": "user-1",
+      "name": "Ahmed Hassan",
+      "email": "ahmed@sharoobi.local",
+      "status": "active",
+      "tier": "premium",
+      "createdAt": "2026-02-15T23:38:18.746Z"
+    },
+    {
+      "id": "user-2",
+      "name": "Fatima Ali",
+      "email": "fatima@sharoobi.local",
+      "status": "active",
+      "tier": "basic",
+      "createdAt": "2026-02-15T23:38:18.746Z"
+    },
+    {
+      "id": "user-3",
+      "name": "Mohammed Saeed",
+      "email": "mohammed@sharoobi.local",
+      "status": "blocked",
+      "tier": "basic",
+      "createdAt": "2026-02-15T23:38:18.746Z"
+    }
+  ],
+  "providers": [
+    {
+      "id": "provider-1",
+      "name": "Best Electronics",
+      "email": "contact@bestelectronics.local",
+      "region": "Saudi Arabia",
+      "status": "active",
+      "verificationStatus": "verified",
+      "createdAt": "2026-02-15T23:38:18.746Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "order-1",
+      "userId": "user-1",
+      "providerId": "provider-1",
+      "status": "delivered",
+      "totalAmount": 599.99,
+      "currency": "SAR",
+      "createdAt": "2026-02-15T23:38:18.746Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": "payment-1",
+      "orderId": "order-1",
+      "userId": "user-1",
+      "amount": 599.99,
+      "currency": "SAR",
+      "method": "card",
+      "status": "completed",
+      "createdAt": "2026-02-15T23:38:18.746Z"
+    }
+  ],
+  "tickets": [],
+  "auditLogs": []
+}

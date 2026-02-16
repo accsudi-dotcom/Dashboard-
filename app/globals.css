@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light mode - Enterprise Professional */
+    --background: 0 0% 100%;
+    --foreground: 220 13% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 13%;
+    
+    /* Primary - Deep Blue (Trust & Authority) */
+    --primary: 217 91% 45%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary - Slate (Neutral & Professional) */
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Muted - Light Gray */
+    --muted: 220 13% 91%;
+    --muted-foreground: 220 8% 45%;
+    
+    /* Accent - Vibrant Teal (Actions & Highlights) */
+    --accent: 173 80% 40%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Destructive - Critical Red */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Success - Emerald */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Warning - Amber */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    
+    /* Info - Sky Blue */
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+    
+    /* Border & Input */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 217 91% 45%;
+    
+    /* Sidebar - Clean Slate */
+    --sidebar-background: 217 32% 17%;
+    --sidebar-foreground: 220 20% 97%;
+    --sidebar-primary: 173 80% 40%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 32% 25%;
+    --sidebar-accent-foreground: 220 20% 97%;
+    --sidebar-border: 217 32% 22%;
+    --sidebar-ring: 173 80% 40%;
+    
+    /* Chart colors */
+    --chart-1: 217 91% 45%;
+    --chart-2: 173 80% 40%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 0 84% 60%;
+    --chart-5: 142 76% 36%;
+    
+    /* Semantic tokens */
+    --status-active: 142 76% 36%;
+    --status-pending: 38 92% 50%;
+    --status-idle: 220 13% 91%;
+    --status-error: 0 84% 60%;
+    
+    /* Radius */
+    --radius: 0.5rem;
+  }
+  
+  .dark {
+    /* Dark mode - High contrast for night operations */
+    --background: 217 32% 9%;
+    --foreground: 220 20% 97%;
+    --card: 217 32% 13%;
+    --card-foreground: 220 20% 97%;
+    --popover: 217 32% 13%;
+    --popover-foreground: 220 20% 97%;
+    
+    --primary: 199 89% 48%;
+    --primary-foreground: 217 32% 9%;
+    
+    --secondary: 217 32% 85%;
+    --secondary-foreground: 217 32% 9%;
+    
+    --muted: 217 32% 25%;
+    --muted-foreground: 220 13% 70%;
+    
+    --accent: 173 80% 50%;
+    --accent-foreground: 217 32% 9%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --success: 142 76% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 38 92% 55%;
+    --warning-foreground: 0 0% 100%;
+    
+    --info: 199 89% 55%;
+    --info-foreground: 0 0% 100%;
+    
+    --border: 217 32% 22%;
+    --input: 217 32% 22%;
+    --ring: 199 89% 48%;
+    
+    --sidebar-background: 217 32% 10%;
+    --sidebar-foreground: 220 20% 95%;
+    --sidebar-primary: 173 80% 50%;
+    --sidebar-primary-foreground: 217 32% 9%;
+    --sidebar-accent: 217 32% 18%;
+    --sidebar-accent-foreground: 220 20% 95%;
+    --sidebar-border: 217 32% 15%;
+    --sidebar-ring: 173 80% 50%;
+    
+    --chart-1: 199 89% 48%;
+    --chart-2: 173 80% 50%;
+    --chart-3: 38 92% 55%;
+    --chart-4: 0 84% 60%;
+    --chart-5: 142 76% 45%;
+    
+    --status-active: 142 76% 45%;
+    --status-pending: 38 92% 55%;
+    --status-idle: 217 32% 25%;
+    --status-error: 0 84% 60%;
+  }
+  
+  /* Scoped light theme for vendor portals (if needed) */
+  [data-theme="light"] {
+    --background: 0 0% 100%;
+    --foreground: 220 13% 13%;
+    --sidebar-background: 217 32% 17%;
+    --sidebar-foreground: 220 20% 97%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Enterprise utility classes */
+  .container-padded {
+    @apply px-6 py-4;
+  }
+  
+  .section-spacing {
+    @apply mb-8;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:border-accent;
+  }
+  
+  .status-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .status-active {
+    @apply bg-emerald-100 text-emerald-900 dark:bg-emerald-900/30 dark:text-emerald-200;
+  }
+  
+  .status-pending {
+    @apply bg-amber-100 text-amber-900 dark:bg-amber-900/30 dark:text-amber-200;
+  }
+  
+  .status-idle {
+    @apply bg-slate-100 text-slate-900 dark:bg-slate-900/30 dark:text-slate-200;
+  }
+  
+  .status-error {
+    @apply bg-red-100 text-red-900 dark:bg-red-900/30 dark:text-red-200;
+  }
+}
