@@ -12,6 +12,7 @@ interface AuthState {
   token: string | null
   isLoading: boolean
   isAuthenticated: boolean
+  isHydrated: boolean
   error: string | null
 
   // Actions
@@ -19,6 +20,7 @@ interface AuthState {
   clearAuth: () => void
   setLoading: (loading: boolean) => void
   setError: (error: string | null) => void
+  setHydrated: (hydrated: boolean) => void
   hasPermission: (resource: string, action: string, conditions?: Record<string, unknown>) => boolean
   canPerform: (resource: string, action: string) => boolean
 }
@@ -30,6 +32,7 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       isLoading: false,
       isAuthenticated: false,
+      isHydrated: false,
       error: null,
 
       setUser: (user: AdminUser, token: string) => {
@@ -39,13 +42,6 @@ export const useAuthStore = create<AuthState>()(
           isAuthenticated: true,
           error: null,
         })
-        // Persist to localStorage immediately
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('auth-storage', JSON.stringify({
-            state: { user, token, isAuthenticated: true },
-            version: 0,
-          }))
-        }
       },
 
       clearAuth: () => {
@@ -67,6 +63,10 @@ export const useAuthStore = create<AuthState>()(
 
       setError: (error: string | null) => {
         set({ error })
+      },
+
+      setHydrated: (hydrated: boolean) => {
+        set({ isHydrated: hydrated })
       },
 
       hasPermission: (resource: string, action: string, conditions?: Record<string, unknown>) => {
@@ -107,6 +107,12 @@ export const useAuthStore = create<AuthState>()(
         token: state.token,
         isAuthenticated: state.isAuthenticated,
       }),
+      onRehydrateStorage: () => (state) => {
+        // Mark as hydrated after rehydration from localStorage
+        if (state) {
+          state.isHydrated = true
+        }
+      },
     }
   )
 )

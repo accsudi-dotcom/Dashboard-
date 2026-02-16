@@ -20,29 +20,35 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   const router = useRouter()
-  const { isAuthenticated } = useAuthStore()
+  const { isAuthenticated, isHydrated, setHydrated } = useAuthStore()
   const { sidebarOpen } = useUIStore()
-  const [mounted, setMounted] = useState(false)
 
-  // Wait for client-side hydration before checking auth
+  // Mark as hydrated once component mounts
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setHydrated(true)
+  }, [setHydrated])
 
-  // Check authentication after hydration
+  // Check authentication after hydration is confirmed
   useEffect(() => {
-    if (!mounted) return
-    
-    if (!isAuthenticated) {
+    // Only redirect if we've hydrated from localStorage AND user is not authenticated
+    if (isHydrated && !isAuthenticated) {
       router.push('/auth/login')
     }
-  }, [isAuthenticated, router, mounted])
+  }, [isHydrated, isAuthenticated, router])
 
-  // Don't render until mounted to avoid hydration mismatch
-  if (!mounted) {
-    return null
+  // Show loading state while hydrating
+  if (!isHydrated) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    )
   }
 
+  // If not authenticated after hydration, don't render dashboard (redirect will handle)
   if (!isAuthenticated) {
     return null
   }
