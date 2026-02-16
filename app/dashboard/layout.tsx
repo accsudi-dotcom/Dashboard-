@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Topbar } from '@/components/layout/Topbar'
@@ -22,13 +22,26 @@ export default function DashboardLayout({
   const router = useRouter()
   const { isAuthenticated } = useAuthStore()
   const { sidebarOpen } = useUIStore()
+  const [mounted, setMounted] = useState(false)
 
-  // Check authentication
+  // Wait for client-side hydration before checking auth
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Check authentication after hydration
+  useEffect(() => {
+    if (!mounted) return
+    
     if (!isAuthenticated) {
       router.push('/auth/login')
     }
-  }, [isAuthenticated, router])
+  }, [isAuthenticated, router, mounted])
+
+  // Don't render until mounted to avoid hydration mismatch
+  if (!mounted) {
+    return null
+  }
 
   if (!isAuthenticated) {
     return null

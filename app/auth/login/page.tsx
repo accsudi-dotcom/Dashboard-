@@ -68,11 +68,14 @@ export default function LoginPage() {
         }
 
         const token = 'mock-jwt-token-' + Math.random().toString(36).slice(2)
+        // Set user in store (this also persists to localStorage)
         setUser(mockUser, token)
         addNotification('success', `Welcome back, ${mockUser.displayName}!`)
 
-        // Redirect to dashboard
-        router.push('/dashboard/command-center')
+        // Small delay to ensure state is persisted before navigation
+        setTimeout(() => {
+          router.push('/dashboard/command-center')
+        }, 100)
       } else {
         throw new Error('Invalid email or password')
       }

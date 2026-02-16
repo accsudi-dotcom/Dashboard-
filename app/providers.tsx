@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider } from 'next-themes'
 
@@ -11,8 +11,10 @@ function getQueryClient() {
     queryClient = new QueryClient({
       defaultOptions: {
         queries: {
-          staleTime: 1000 * 60, // 1 minute
-          gcTime: 1000 * 60 * 5, // 5 minutes (formerly cacheTime)
+          staleTime: 1000 * 60 * 5, // 5 minutes - increased to prevent refetches
+          gcTime: 1000 * 60 * 10, // 10 minutes (formerly cacheTime)
+          retry: 1,
+          refetchOnWindowFocus: false, // Prevent refetch on window focus
         },
       },
     })

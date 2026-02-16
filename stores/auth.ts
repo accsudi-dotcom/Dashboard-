@@ -39,6 +39,13 @@ export const useAuthStore = create<AuthState>()(
           isAuthenticated: true,
           error: null,
         })
+        // Persist to localStorage immediately
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('auth-storage', JSON.stringify({
+            state: { user, token, isAuthenticated: true },
+            version: 0,
+          }))
+        }
       },
 
       clearAuth: () => {
@@ -48,6 +55,10 @@ export const useAuthStore = create<AuthState>()(
           isAuthenticated: false,
           error: null,
         })
+        // Clear localStorage on logout
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('auth-storage')
+        }
       },
 
       setLoading: (loading: boolean) => {
